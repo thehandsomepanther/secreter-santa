@@ -1,0 +1,73 @@
+{
+  "Josh" : {
+    "matches" : {
+      "1" : "Kyle",
+      "2" : "Drew",
+      "3" : "Kyle",
+      "4" : "Kyle"
+    }
+  },
+  "Dan" : {
+    "matches" : {
+      "1" : "Jay",
+      "2" : "Josh",
+      "3" : "Sam",
+      "4" : "Chris"
+    }
+  },
+  "Sam" : {
+    "matches" : {
+      "1" : "Dan",
+      "2" : "Adam",
+      "3" : "Kevin",
+      "4" : "Kevin"
+    }
+  },
+  "Kyle" : {
+    "matches" : {
+      "1" : "Chris",
+      "2" : "Kevin",
+      "3" : "Drew",
+      "4" : "Jay"
+    }
+  },
+  "Chris" : {
+    "matches" : {
+      "1" : "Drew",
+      "2" : "Jay",
+      "3" : "Jay",
+      "4" : "Drew"
+    }
+  },
+  "Kevin" : {
+    "matches" : {
+      "1" : "Sam",
+      "2" : "Chris",
+      "3" : "Adam",
+      "4" : "Adam"
+    }
+  },
+  "Jay" : {
+    "matches" : {
+      "1" : "Josh",
+      "2" : "Kyle",
+      "3" : "Chris",
+      "4" : "Josh"
+    }
+  },
+  "Drew" : {
+    "matches" : {
+      "1" : "Kevin",
+      "2" : "Dan",
+      "3" : "Dan",
+      "4" : "Dan"
+    }
+  },
+  "Adam" : {
+    "matches" : {
+      "2" : "Josh",
+      "3" : "Josh",
+      "4" : "Sam"
+    }
+  }
+}
