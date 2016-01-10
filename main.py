@@ -31,17 +31,17 @@ def main():
 
         for i in range(len(A)):
             for j in range(len(B)):
-                person_a = A[i]
-                person_b = B[j]
+                person_a = A[i][:-2]
+                person_b = B[j][:-2]
 
                 cost = 0
                 scale = 100 / last_year
 
-                if person_a[:-2] != person_b[:-2]:
-                    if data[person_a[:-2]]["matches"][str(last_year - 1)] != person_b[:-2]:
-                        for key in data[person_a[:-2]]["matches"].keys():
+                if person_a != person_b:
+                    if data[person_a]["matches"][str(last_year - 1)] != person_b:
+                        for key in data[person_a]["matches"].keys():
                             repeats = 0
-                            if data[person_a[:-2]]["matches"][key] == person_b[:-2]:
+                            if data[person_a]["matches"][key] == person_b:
                                 repeats += 1
                             cost = repeats * scale + random.random() * scale
                     else:
@@ -52,7 +52,7 @@ def main():
                 matrix[i][j] = cost
 
         indices = m.compute(matrix)
-        print_matrix(matrix, msg='Lowest cost through this matrix: ')
+        print_matrix(matrix, msg='Secret Santa costs: ')
         total = 0
 
         for row, column in indices:
