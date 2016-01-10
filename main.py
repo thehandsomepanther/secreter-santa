@@ -1,10 +1,41 @@
-from ff import *
+from munkres import Munkres
+import sys
 import json
 
+def print_matrix(matrix, msg=None):
+    """
+    Convenience function: Displays the contents of a matrix of integers.
+    :Parameters:
+        matrix : list of lists
+            Matrix to print
+        msg : str
+            Optional message to print before displaying the matrix
+    """
+    import math
+
+    if msg is not None:
+        print(msg)
+
+    # Calculate the appropriate format width.
+    width = 1
+    for row in matrix:
+        for val in row:
+            if abs(val) > 1:
+               width = max(width, int(math.log10(abs(val))) + 1)
+
+    # Make the format string
+    format = '%%%dd' % width
+
+    # Print the matrix
+    for row in matrix:
+        sep = '['
+        for val in row:
+            sys.stdout.write(sep + format % val)
+            sep = ', '
+        sys.stdout.write(']\n')
+
 def main():
-    g = FlowNetwork()
-    g.add_vertex('s')
-    g.add_vertex('t')
+    m = Munkres()
 
     A = []
     B = []
@@ -22,34 +53,45 @@ def main():
             last_year = max(last_year, max(years))
 
             person_a = person + "_A"
-            g.add_vertex(person_a)
-            g.add_edge('s', person_a, 100)
             A.append(person_a)
 
             person_b = person + "_B"
-            g.add_vertex(person_b)
-            g.add_edge(person_b, 't', 100)
             B.append(person_b)
 
-        for person_a in A:
-            for person_b in B:
-                flow = 100
+        matrix = [[0 for x in range(len(A))] for x in range(len(A))]
+
+        for i in range(len(A)):
+            for j in range(len(B)):
+                person_a = A[i]
+                person_b = B[j]
+
+                cost = 0
+                scale = 100 / last_year
+
                 if person_a[:-2] != person_b[:-2]:
                     if data[person_a[:-2]]["matches"][str(last_year - 1)] != person_b[:-2]:
                         for key in data[person_a[:-2]]["matches"].keys():
-                            repeats = 1
+                            repeats = 0
                             if data[person_a[:-2]]["matches"][key] == person_b[:-2]:
                                 repeats += 1
-                            flow = flow / repeats
+                            cost = repeats * scale
                     else:
-                        flow = 0
+                        cost = 100
                 else:
-                    flow = 0
+                    cost = 100
 
-                g.add_edge(person_a, person_b, flow)
-                print "{}-{}->{}".format(person_a, flow, person_b)
+                matrix[i][j] = cost
 
+                # print "{}-{}->{}".format(person_a, cost, person_b)
 
-    print g.max_flow('s', 't')
+        indices = m.compute(matrix)
+        print_matrix(matrix, msg='Lowest cost through this matrix: ')
+        total = 0
+
+        for row, column in indices:
+            value = matrix[row][column]
+            total += value
+            print '(%d, %d) -> %d' % (row, column, value)
+        print 'total cost: %d' % total
 
 main()
