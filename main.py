@@ -51,8 +51,6 @@ def main():
 
                 matrix[i][j] = cost
 
-                # print "{}-{}->{}".format(person_a, cost, person_b)
-
         indices = m.compute(matrix)
         print_matrix(matrix, msg='Lowest cost through this matrix: ')
         total = 0
