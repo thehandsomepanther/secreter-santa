@@ -13,7 +13,7 @@ def main():
     B = []
     santas = []
 
-    with open('santa-real.json') as json_file:
+    with open('santa.json') as json_file:
         data = json.load(json_file)
         last_year = 0
 
