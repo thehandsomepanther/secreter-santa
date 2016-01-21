@@ -1,15 +1,19 @@
 from munkres import Munkres
 import random
 from print_matrix import *
+from credentials import *
 import json
+import smtplib
+from smtplib import SMTPException
 
 def main():
     m = Munkres()
 
     A = []
     B = []
+    santas = []
 
-    with open('santa.json') as json_file:
+    with open('santa-real.json') as json_file:
         data = json.load(json_file)
         last_year = 0
 
@@ -20,6 +24,8 @@ def main():
                 years.append(int(key))
 
             last_year = max(last_year, max(years))
+
+            santas.append(person)
 
             person_a = person + "_A"
             A.append(person_a)
@@ -52,13 +58,38 @@ def main():
                 matrix[i][j] = cost
 
         indices = m.compute(matrix)
-        print_matrix(matrix, msg='Secret Santa costs: ')
+
+        # Munkres matrix
+        # print_matrix(matrix, msg='Secret Santa costs: ')
         total = 0
 
         for row, column in indices:
             value = matrix[row][column]
             total += value
-            print '(%d, %d) -> %d' % (row, column, value)
-        print 'total cost: %d' % total
 
+            # Santa -(cost)-> Assignee
+            # print "{} -({})-> {}".format(santas[row], value, santas[column])
+
+            receiver = data[santas[row]]["email"]
+
+            message = """
+            From: {}
+            To: {}
+            Subject: Secret Santa Assignment
+
+            Ho, ho, ho. You have been assigned {}.
+            """.format(email, receiver, santas[column])
+
+            try:
+                session = smtplib.SMTP('smtp.gmail.com', 587)
+                session.ehlo()
+                session.starttls()
+                session.login(email, password)
+                session.sendmail(email, receiver, message)
+                session.close()
+            except SMTPException:
+                print "Error: unable to send email"
+
+        print 'Secret Santa assignment done.'
+        # print 'total cost: %d' % total
 main()

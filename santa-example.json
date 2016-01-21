@@ -1,5 +1,6 @@
 {
   "Josh" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Kyle",
       "2" : "Drew",
@@ -8,6 +9,7 @@
     }
   },
   "Dan" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Jay",
       "2" : "Josh",
@@ -16,6 +18,7 @@
     }
   },
   "Sam" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Dan",
       "2" : "Adam",
@@ -24,6 +27,7 @@
     }
   },
   "Kyle" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Chris",
       "2" : "Kevin",
@@ -32,6 +36,7 @@
     }
   },
   "Chris" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Drew",
       "2" : "Jay",
@@ -40,6 +45,7 @@
     }
   },
   "Kevin" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Sam",
       "2" : "Chris",
@@ -48,6 +54,7 @@
     }
   },
   "Jay" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Josh",
       "2" : "Kyle",
@@ -56,6 +63,7 @@
     }
   },
   "Drew" : {
+    "email" : "fake@email.com",
     "matches" : {
       "1" : "Kevin",
       "2" : "Dan",
@@ -64,6 +72,7 @@
     }
   },
   "Adam" : {
+    "email" : "fake@email.com",
     "matches" : {
       "2" : "Josh",
       "3" : "Josh",
