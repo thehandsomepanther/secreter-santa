@@ -45,11 +45,11 @@ def main():
 
                 if person_a != person_b:
                     if data[person_a]["matches"][str(last_year - 1)] != person_b:
+                        repeats = 0
                         for key in data[person_a]["matches"].keys():
-                            repeats = 0
                             if data[person_a]["matches"][key] == person_b:
                                 repeats += 1
-                            cost = repeats * scale + random.random() * scale
+                        cost = repeats * scale + random.random() * scale
                     else:
                         cost = 100
                 else:
