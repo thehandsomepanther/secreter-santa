@@ -1,4 +1,5 @@
 #secreter-santa
+
 This is a python script to generate secret santa matchings such that it is less likely for someone to be assigned a person if he or she has already had that person in years previous. This works by creating a weighted bipartite graph of Santas and running the Munkres algorithm over them.
 
 You can install the Munkres library by running
