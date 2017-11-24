@@ -6,6 +6,8 @@ import json
 import smtplib
 from smtplib import SMTPException
 import sys
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def main(debug=False):
     m = Munkres()
@@ -69,25 +71,27 @@ def main(debug=False):
             value = matrix[row][column]
             total += value
 
-            # Santa -(cost)-> Assignee
             if debug:
+                # Santa -(cost)-> Assignee
                 print '{} -({})-> {}'.format(santas[row], value, santas[column])
             else:
+                sender = email
                 receiver = data[santas[row]]['email']
-                message = """
-                From: {}
-                To: {}
-                Subject: Secret Santa Assignment
+                message = MIMEMultipart('alternative')
 
-                Ho, ho, ho. You have been assigned {}.
-                """.format(email, receiver, santas[column])
+                message['Subject'] = 'Secret Santa Assignment'
+                message['From'] = email
+                message['To'] = receiver
+
+                text = 'Ho, ho, ho. You have been assigned {}.'.format(santas[column])
+                message.attach(MIMEText(text, 'plain'))
 
                 try:
                     session = smtplib.SMTP('smtp.gmail.com', 587)
                     session.ehlo()
                     session.starttls()
                     session.login(email, password)
-                    session.sendmail(email, receiver, message)
+                    session.sendmail(sender, receiver, message.as_string())
                     session.close()
                 except SMTPException:
                     print 'Error: unable to send email'
